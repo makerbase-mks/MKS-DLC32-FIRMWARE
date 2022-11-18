@@ -5,8 +5,11 @@
 
 #ifndef MACHINE_FILENAME
 
-#include "Machines/i2s_out_xyz_mks_dlc32.h"
-// #include "Machines/i2s_out_corexy_mks_dlc32.h"
+#ifdef MACHINE_TYPE_DEFAULT
+    #include "Machines/i2s_out_xyz_mks_dlc32.h"
+#else
+    #include "Machines/i2s_out_corexy_mks_dlc32.h"
+#endif
 
 #else
 
