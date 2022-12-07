@@ -1,7 +1,7 @@
 #ifndef __MKS_CTRL_H
 #define __MKS_CTRL_H
 
-#include "../grbl.h"
+#include "../Grbl.h"
 #include "MKS_LVGL.h"
 
 /**************************************************** BLTouch ************************************************/

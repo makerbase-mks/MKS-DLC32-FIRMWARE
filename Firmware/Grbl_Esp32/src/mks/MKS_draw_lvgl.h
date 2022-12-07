@@ -16,7 +16,7 @@
 #include "MKS_draw_wifi.h"
 #include "MKS_draw_frame.h"
 #include "mks_ringbuff.h"
-#include "mks_updata.h"
+#include "MKS_updata.h"
 #include "mks_test.h"
 #include "draw_ui.h"
 

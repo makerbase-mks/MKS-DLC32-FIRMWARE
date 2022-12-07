@@ -1,7 +1,7 @@
 #ifndef __draw_ui_h
 #define __draw_ui_h
 
-#include "mks_draw_lvgl.h"
+#include "MKS_draw_lvgl.h"
 
 
 LV_FONT_DECLARE(dlc32Font);	

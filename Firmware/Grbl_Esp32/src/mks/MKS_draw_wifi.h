@@ -1,7 +1,7 @@
 #ifndef __mks_draw_wifi_h
 #define __mks_draw_wifi_h
 
-#include "mks_draw_lvgl.h"
+#include "MKS_draw_lvgl.h"
 #include "../WebUI/WifiConfig.h"
 #if defined(ENABLE_WIFI)
 
