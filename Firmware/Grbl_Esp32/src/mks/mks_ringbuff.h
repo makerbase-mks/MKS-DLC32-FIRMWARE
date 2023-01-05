@@ -1,7 +1,7 @@
 #ifndef __mks_ringbuff_h
 #define __mks_ringbuff_h
 
-#include "mks_draw_lvgl.h"
+#include "MKS_draw_lvgl.h"
 
 
 #define CMD_NUM         4
