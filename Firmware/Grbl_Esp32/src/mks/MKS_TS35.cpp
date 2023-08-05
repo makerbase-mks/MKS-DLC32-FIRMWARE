@@ -1,5 +1,6 @@
 #include "MKS_TS35.h"
 
+#if defined(LCD_EN)
 TFT_eSPI tft = TFT_eSPI(); 
 
 void tft_LCD_Fill() {
@@ -13,20 +14,26 @@ void tft_TS35_init() {
     tft.initDMA();
     delay_ms(100);
 }   
+#endif
 
 void ts35_beep_init() { 
+#if defined(BEEPER)
     pinMode(BEEPER, OUTPUT);
     digitalWrite(BEEPER, LOW);
+#endif
 }
 
 void ts35_beep_on(void) {
+#if defined(BEEPER)
     if(beep_status->get()) digitalWrite(BEEPER, HIGH);
+#endif
 }
 
 void ts35_beep_off(void) {
+#if defined(BEEPER)
     digitalWrite(BEEPER, LOW);
+#endif
 }
-
 
 #define LED_RESOLUTION      10
 #define LED_CHANNEL         14

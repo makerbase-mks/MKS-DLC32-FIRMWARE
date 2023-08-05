@@ -32,10 +32,11 @@ void grbl_init() {
     disableCore0WDT();
     disableCore1WDT();
 
+#ifdef LCD_EN
     pinMode(LCD_EN, OUTPUT);
-    
     LCD_BLK_OFF;
-    
+#endif
+
 #ifdef USE_I2S_OUT
     i2s_out_init();  // The I2S out must be initialized before it can access the expanded GPIO port
 #endif
@@ -120,9 +121,13 @@ void _mc_task_init(void) {
     mks_grbl_parg_init();
     ts35_beep_init();
     bsp_led_init();
+#if defined(LCD_EN)
     tft_TS35_init();
+#endif
     test_cfg_find_init();
+#if defined(LCD_EN)
     disp_task_init();
+#endif
 }
 
 

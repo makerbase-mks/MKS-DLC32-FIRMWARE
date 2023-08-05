@@ -13,6 +13,8 @@ TaskHandle_t frame_task_tcb = NULL;
 
 #define USE_DelayUntil
 
+#if defined(LCD_EN)
+
 static void mks_page_data_updata(void);
 
 IRAM_ATTR void lvgl_disp_task(void *parg) { 
@@ -208,6 +210,7 @@ IRAM_ATTR void disp_task_init(void) {
                                                 // core
     );
 }
+#endif // defined(LCD_EN)
 
 /*-------------------------------------------------------------------------------------------------*/
 

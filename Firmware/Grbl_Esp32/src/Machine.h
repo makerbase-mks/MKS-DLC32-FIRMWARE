@@ -7,6 +7,8 @@
 
 #ifdef MACHINE_TYPE_DEFAULT
     #include "Machines/i2s_out_xyz_mks_dlc32.h"
+#elif defined(MACHINE_TYPE_LTS)
+    #include "Machines/i2s_out_xy_mks_lts.h"
 #else
     #include "Machines/i2s_out_corexy_mks_dlc32.h"
 #endif

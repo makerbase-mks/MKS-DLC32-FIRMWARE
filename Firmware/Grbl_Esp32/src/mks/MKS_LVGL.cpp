@@ -9,6 +9,8 @@ static lv_disp_buf_t    disp_buf;
 static lv_color_t       bmp_public_buf[LV_BUF_SIZE];
 // static lv_color_t       bmp_private_buf1[LV_BUF_SIZE]; 
 
+#if defined(LCD_EN)
+
 /* Function */
 void my_disp_flush(lv_disp_drv_t * disp, const lv_area_t * area, lv_color_t * color_p);
 bool my_indev_touch(struct _lv_indev_drv_t * indev_drv, lv_indev_data_t * data);
@@ -92,6 +94,7 @@ bool my_indev_touch(struct _lv_indev_drv_t * indev_drv, lv_indev_data_t * data) 
     }
     return false;
 }   
+#endif // defined(LCD_EN)
 
 #if USE_LV_LOG != 0
 /* Serial debugging */

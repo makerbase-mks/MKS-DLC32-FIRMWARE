@@ -34,6 +34,7 @@
 #define BEEP_OFF           
 #endif
 
+#if defined (LCD_EN)
 #ifdef USE_VERSION_003
 #define LCD_BLK_ON          digitalWrite(LCD_EN, HIGH)
 #define LCD_BLK_OFF         digitalWrite(LCD_EN, LOW)
@@ -47,6 +48,8 @@ extern TFT_eSPI tft;
 
 void tft_TS35_init();
 void tft_TS35_SPI_begin(void);
+#endif
+
 void ts35_beep_init();
 void ts35_beep_on(void);
 void ts35_beep_off(void);
