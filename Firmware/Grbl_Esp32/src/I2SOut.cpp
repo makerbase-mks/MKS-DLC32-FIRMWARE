@@ -51,13 +51,13 @@
 #include "Serial.h"
 #include "Report.h"
 
-#include <FreeRTOS.h>
+#include <freertos/FreeRTOS.h>
 #include <driver/periph_ctrl.h>
 #include <rom/lldesc.h>
 #include <soc/i2s_struct.h>
 #include <freertos/queue.h>
 
-#include <stdatomic.h>
+#include <atomic>
 
 #include "Pins.h"
 #include "I2SOut.h"
@@ -99,7 +99,7 @@ static intr_handle_t i2s_out_isr_handle;
 #endif
 
 // output value
-static atomic_uint_least32_t i2s_out_port_data = ATOMIC_VAR_INIT(0);
+static std::atomic<uint32_t> i2s_out_port_data = ATOMIC_VAR_INIT(0);
 
 // inner lock
 static portMUX_TYPE i2s_out_spinlock = portMUX_INITIALIZER_UNLOCKED;

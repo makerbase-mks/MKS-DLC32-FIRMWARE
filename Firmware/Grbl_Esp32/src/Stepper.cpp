@@ -958,7 +958,7 @@ void IRAM_ATTR Stepper_Timer_Init() {
     config.counter_en  = TIMER_PAUSE;
     config.alarm_en    = TIMER_ALARM_EN;
     config.intr_type   = TIMER_INTR_LEVEL;
-    config.auto_reload = true;
+    config.auto_reload = TIMER_AUTORELOAD_EN;
     timer_init(STEP_TIMER_GROUP, STEP_TIMER_INDEX, &config);
     timer_set_counter_value(STEP_TIMER_GROUP, STEP_TIMER_INDEX, 0x00000000ULL);
     timer_enable_intr(STEP_TIMER_GROUP, STEP_TIMER_INDEX);

@@ -39,7 +39,7 @@ extern "C" {
 #ifdef ESP8266
 #include <Hash.h>
 #elif defined(ESP32)
-#include <hwcrypto/sha.h>
+#include <rom/sha.h>
 #else
 
 extern "C" {
@@ -489,7 +489,10 @@ String WebSockets::acceptKey(String & clientKey) {
     sha1(clientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", &sha1HashBin[0]);
 #elif defined(ESP32)
     String data = clientKey + "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-    esp_sha(SHA1, (unsigned char*)data.c_str(), data.length(), &sha1HashBin[0]);
+    SHA_CTX ctx;
+    ets_sha_init(&ctx);
+    ets_sha_update(&ctx, SHA1, (const unsigned char*)clientKey.c_str(), clientKey.length());
+    ets_sha_finish(&ctx, SHA1, &sha1HashBin[0]);
 #else
     clientKey += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
     SHA1_CTX ctx;
