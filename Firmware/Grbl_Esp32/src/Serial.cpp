@@ -184,9 +184,9 @@ void clientCheckTask(void* pvParameters) {
 #if defined(ENABLE_SD_CARD)
                 if (get_sd_state(false) < SDState::Busy) {
 #endif  //ENABLE_SD_CARD
-                    vTaskEnterCritical(&myMutex);
+                    vPortEnterCritical(&myMutex);
                     client_buffer[client].write(data);
-                    vTaskExitCritical(&myMutex);
+                    vPortExitCritical(&myMutex);
 #if defined(ENABLE_SD_CARD)
                 } else {
                     if (data == '\r' || data == '\n') {
@@ -229,9 +229,9 @@ void client_reset_read_buffer(uint8_t client) {
 
 // Fetches the first byte in the client read buffer. Called by protocol loop.
 int client_read(uint8_t client) {
-    vTaskEnterCritical(&myMutex);
+    vPortEnterCritical(&myMutex);
     int data = client_buffer[client].read();
-    vTaskExitCritical(&myMutex);
+    vPortExitCritical(&myMutex);
     return data;
 }
 

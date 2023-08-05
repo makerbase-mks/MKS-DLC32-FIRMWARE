@@ -128,6 +128,7 @@ void _mc_task_init(void) {
 #if defined(LCD_EN)
     disp_task_init();
 #endif
+    gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
 }
 
 
