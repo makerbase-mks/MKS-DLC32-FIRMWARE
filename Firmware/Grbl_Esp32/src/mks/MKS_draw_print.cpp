@@ -945,7 +945,7 @@ void draw_adj_popup(void) {
     lv_style_copy(&print_src.print_mm_btn1_style, &lv_style_scr);
     print_src.print_mm_btn1_style.body.main_color = LV_COLOR_MAKE(0xCE, 0xD6, 0xE5);
     print_src.print_mm_btn1_style.body.grad_color = LV_COLOR_MAKE(0xCE, 0xD6, 0xE5);
-    print_src.print_mm_btn1_style.body.opa = LV_OPA_COVER;//设置背景色完全不透明
+    print_src.print_mm_btn1_style.body.opa = LV_OPA_COVER;//设置背景色完全不透明 Set the background color to be completely opaque
     print_src.print_mm_btn1_style.body.border.width = 1;
     print_src.print_mm_btn1_style.body.border.color = LV_COLOR_MAKE(0x3F, 0x46, 0x66);
     print_src.print_mm_btn1_style.text.color =  LV_COLOR_MAKE(0x3F, 0x46, 0x66);;
@@ -954,7 +954,7 @@ void draw_adj_popup(void) {
     lv_style_copy(&print_src.print_mm_btn2_style, &lv_style_scr);
     print_src.print_mm_btn2_style.body.main_color = LV_COLOR_MAKE(0x3F, 0x46, 0x66);
     print_src.print_mm_btn2_style.body.grad_color = LV_COLOR_MAKE(0x3F, 0x46, 0x66);
-    print_src.print_mm_btn2_style.body.opa = LV_OPA_COVER;//设置背景色完全不透明
+    print_src.print_mm_btn2_style.body.opa = LV_OPA_COVER;//设置背景色完全不透明 Set the background color to be completely opaque
     print_src.print_mm_btn2_style.text.color = LV_COLOR_WHITE;
     print_src.print_mm_btn2_style.body.radius = 10; 
 

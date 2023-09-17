@@ -119,9 +119,9 @@ void mks_grbl_parg_init(void) {
     mks_grbl.mks_sd_status = 0;
     mks_grbl.wifi_back_from = 0;
     mks_grbl.is_need_ref_sd_file = true;
-    mks_ui_page.mks_ui_page = MKS_UI_Ready;                     // 开机进入主页的标记
-    mks_ui_page.wait_count = DEFAULT_UI_COUNT;                  // 允许10个周期的等待lvgl数据缓冲
-    mks_grbl.carve_times = 0;                                   // 雕刻次数
+    mks_ui_page.mks_ui_page = MKS_UI_Ready;                     // 开机进入主页的标记 Mark to enter the home page after booting
+    mks_ui_page.wait_count = DEFAULT_UI_COUNT;                  // 允许10个周期的等待lvgl数据缓冲 Allow 10 cycles to wait for lvgl data buffer
+    mks_grbl.carve_times = 0;                                   // 雕刻次数 Number of engravings
     #if defined(ENABLE_WIFI)
     mks_wifi.wifi_show_page = 1;
     mks_wifi.wifi_scanf_status = wifi_none;

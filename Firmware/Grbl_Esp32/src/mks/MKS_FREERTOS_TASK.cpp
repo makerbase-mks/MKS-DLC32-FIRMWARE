@@ -5,7 +5,7 @@
 #define DISP_TASK_CORE                  1
 
 #define FRAME_TASK_STACK                4096*2
-#define FRAME_TASK_PRO                  3          // 尝试巡边的线程与lvgl线程同优先级
+#define FRAME_TASK_PRO                  3          // 尝试巡边的线程与lvgl线程同优先级 The thread trying to patrol the edge has the same priority as the lvgl thread
 #define FRAME_TASK_CORE                 1
 
 TaskHandle_t lv_disp_tcb = NULL;
@@ -31,7 +31,7 @@ IRAM_ATTR void lvgl_disp_task(void *parg) {
 
     mks_draw_logo();
 
-    // 创建二值量
+    // 创建二值量 Create a binary quantity
     is_fram_need = xSemaphoreCreateBinary();
     frame_task_init();
     mks_grbl.wifi_connect_enable = true;
@@ -66,7 +66,7 @@ IRAM_ATTR void lvgl_disp_task(void *parg) {
         }
 
 #if defined(USE_DelayUntil)
-    vTaskDelayUntil(&xLastWakeTime, xDisplayFrequency); //使用相对延时，保证时间精准
+    vTaskDelayUntil(&xLastWakeTime, xDisplayFrequency); //使用相对延时，保证时间精准 Use relative delay to ensure accurate time
 #else
         vTaskDelay(5); // 5ms 绝对延时
 #endif   
@@ -86,14 +86,14 @@ static void mks_page_data_updata(void) {
             draw_testing();
         }
     }
-    else if (mks_ui_page.mks_ui_page == MKS_UI_Ready) {  //只有在当前页面才更新数据
+    else if (mks_ui_page.mks_ui_page == MKS_UI_Ready) {  //只有在当前页面才更新数据 Only update data on the current page
 
         if((count_updata == 20) || (count_updata > 20) ) {        // 20*5=100ms
             if(SD_ready_next == false) ready_data_updata();
             count_updata = 0;
         }
     }
-    else if(mks_ui_page.mks_ui_page == MKS_UI_Pring) { // 雕刻界面更新数据
+    else if(mks_ui_page.mks_ui_page == MKS_UI_Pring) { // 雕刻界面更新数据 Engraving interface update data
 
         if((count_updata == 200) || (count_updata > 200) ) { // 200*5=1000ms = 1s
 
@@ -103,14 +103,14 @@ static void mks_page_data_updata(void) {
             count_updata = 0;
         }
     }
-    else if(mks_ui_page.mks_ui_page == MKS_UI_inFile) { // 雕刻界面更新数据
+    else if(mks_ui_page.mks_ui_page == MKS_UI_inFile) { // 雕刻界面更新数据 Engraving interface update data
 
         if((count_updata == 200) || (count_updata > 200) ) { // 200*5=1000ms = 1s
             move_pos_update();
             probe_check();
         }
     }
-    else if(mks_ui_page.mks_ui_page == MKS_UI_Control) {  //控制界面
+    else if(mks_ui_page.mks_ui_page == MKS_UI_Control) {  //控制界面 control interface
 
         if((count_updata == 20) || (count_updata > 20) ) { // 20*5=100ms = 1s
             hard_home_check();
@@ -151,8 +151,8 @@ static void mks_page_data_updata(void) {
             mks_draw_wifi_show();
             mks_wifi.wifi_scanf_status = wifi_none;
         }else if(mks_wifi.wifi_scanf_status == wifi_connecting) {
-            if(mks_grbl.wifi_connect_status == true) {          // 正在连接状态
-                if(mks_get_wifi_status() == true) {             // 确认连接上
+            if(mks_grbl.wifi_connect_status == true) {          // 正在连接状态 Connecting status
+                if(mks_get_wifi_status() == true) {             // 确认连接上 Confirm connection
                     mks_lv_clean_ui();
                     mks_draw_wifi();
                     mks_wifi.wifi_scanf_status = wifi_none;
@@ -166,8 +166,8 @@ static void mks_page_data_updata(void) {
         }
         else if(mks_wifi.wifi_scanf_status == wifi_disconnecting) {
             
-            if(mks_get_wifi_status() == false) {  // 确认断开
-                mks_wifi.wifi_scanf_status = wifi_scanf_begin;   // 重新扫描
+            if(mks_get_wifi_status() == false) {  // 确认断开 Confirm disconnection
+                mks_wifi.wifi_scanf_status = wifi_scanf_begin;   // 重新扫描 Rescan
                 mks_lv_clean_ui();
                 mks_draw_wifi();
             }
@@ -180,13 +180,13 @@ static void mks_page_data_updata(void) {
             mks_cfg_find();
         }
         else if(mks_updata.updata_flag == UD_UPDATA_FINSH) {
-            // 更新完成弹窗
+            // 更新完成弹窗 Update completed pop-up window
             mks_draw_common_pupup_info("Info", "Update succeed", "Please restart!");
             mks_cfg_rename(CFG_FILE_PATG2);
             mks_updata.updata_flag = UD_NONE;
         }
         else if(mks_updata.updata_flag == UD_UPDATA_FAIL) {
-            // 更新失败弹窗
+            // 更新失败弹窗 Update failed pop-up window
             mks_draw_common_pupup_info("Error", "Update Fail", "Please Check mkscfg.txt or sdcard");
             mks_updata.updata_flag = UD_NONE;
         }
@@ -214,7 +214,7 @@ IRAM_ATTR void disp_task_init(void) {
 IRAM_ATTR void frame_task(void *parg) {
 
     grbl_send(CLIENT_SERIAL,"Creat frame task succeed\n");
-    // 定义一个信号量返回值
+    // 定义一个信号量返回值 Define a semaphore return value
     BaseType_t sem_receive = pdPASS;
 
     while(1) {  
@@ -222,11 +222,11 @@ IRAM_ATTR void frame_task(void *parg) {
         sem_receive = xSemaphoreTake(is_fram_need, portMAX_DELAY);
 
         if(sem_receive == pdTRUE) {
-            // 触发信号量
+            // 触发信号量 trigger semaphore
             grbl_send(CLIENT_SERIAL,"receive sem succeed\n");
-            vTaskSuspend(lv_disp_tcb); // 挂起任务da
+            vTaskSuspend(lv_disp_tcb); // 挂起任务da pending tasks
             mks_run_frame(frame_ctrl.file_name);
-            vTaskResume(lv_disp_tcb);   // 恢复任务
+            vTaskResume(lv_disp_tcb);   // 恢复任务 recovery task
         }
     }
 }
@@ -245,7 +245,7 @@ IRAM_ATTR void frame_task_init(void ) {
     );
 }
 
-/*-------------------------------------------测试模式----------------------------------------------*/
+/*-------------------------------------------测试模式 test mode ----------------------------------------------*/
 
 #define TEST_CODE_TASK_STACK                4096
 #define TEST_CODE_TASK_PRO                  3          

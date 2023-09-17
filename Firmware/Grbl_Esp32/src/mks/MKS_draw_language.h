@@ -8,14 +8,14 @@
 typedef struct {
 
     lv_obj_t *imgbtn_back;
-    lv_obj_t *imgbtn_simple_cn;         // 简体中文
-    lv_obj_t *imgbtn_en;                // 英语
-    lv_obj_t *imgbtn_de;                // 德语
+    lv_obj_t *imgbtn_simple_cn;         // 简体中文 Simplified Chinese
+    lv_obj_t *imgbtn_en;                // 英语 English
+    lv_obj_t *imgbtn_de;                // 德语 German
 
     lv_obj_t *label_back;
-    lv_obj_t *label_simple_cn;         // 简体中文
-    lv_obj_t *label_en;                // 英语
-    lv_obj_t *label_de;                // 德语
+    lv_obj_t *label_simple_cn;         // 简体中文 Simplified Chinese
+    lv_obj_t *label_en;                // 英语 English
+    lv_obj_t *label_de;                // 德语 German
 
 
 }LANGUAGE_PAGE_T;
@@ -23,12 +23,12 @@ typedef struct {
 
 typedef struct {
 
-    /* 公共 */
+    /* 公共 public */
     const char *back;
     const char *yes;
     const char *no;
 
-    /* 主页 */
+    /* 主页 Home page */
     const char *control;
     const char *sculpture;
     const char *tool;
@@ -38,7 +38,7 @@ typedef struct {
     const char *wifi_connect;
     const char *wifi_disconnect;
 
-    /* 控制界面 */
+    /* 控制界面 control interface*/
     const char *xy_clear;
     const char *z_clear;
     const char *knife;
@@ -52,10 +52,10 @@ typedef struct {
     const char *spindle;
     const char *carve;
 
-    /* 文件界面 */
+    /* 文件界面 File interface */
     const char *dis_no_sd_card;
 
-    /* 雕刻界面 */
+    /* 雕刻界面 Engraving interface */
     const char *hold;
     const char *cycle;
     const char *stop;
@@ -69,7 +69,7 @@ typedef struct {
     
     
     
-    /* 提示语 */
+    /* 提示语 hint */
     const char *dis_stop_print;
     const char *dis_homing;
     const char *dis_no_hard_homing;
@@ -84,5 +84,7 @@ extern mc_lg_muilt_t mc_language;
 
 void draw_language(void);
 void mks_clear_language(void);
+
+void set_language(uint8_t language);
 
 #endif
