@@ -86,6 +86,5 @@ void draw_language(void);
 void mks_clear_language(void);
 
 void set_language(uint8_t language);
-void set_language_btn_style(uint8_t language);
 
 #endif
