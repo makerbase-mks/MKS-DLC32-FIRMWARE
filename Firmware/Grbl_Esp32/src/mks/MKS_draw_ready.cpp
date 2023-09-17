@@ -161,12 +161,12 @@ void mks_widi_show_ip(IPAddress ip, uint8_t p) {
 
 
 void ready_data_updata(void) {
-
+    
     static uint8_t wifi_ref_count = 0;
     static float mks_print_position[MAX_N_AXIS];
     float* print_position = system_get_mpos();
 
-    sprintf(xpos_str, "X:%.1f", print_position[0]);
+    sprintf(xpos_str, "X:%.1f", print_position[0]); //machine position
     sprintf(ypos_str, "Y:%.1f", print_position[1]);
     sprintf(zpos_str, "Z:%.1f", print_position[2]);
 
@@ -175,7 +175,7 @@ void ready_data_updata(void) {
     lv_label_set_static_text(ready_src.ready_label_m_zpos, zpos_str);
 
     mpos_to_wpos(print_position);
-    sprintf(m_xpos_str, "X:%.1f", print_position[0]);
+    sprintf(m_xpos_str, "X:%.1f", print_position[0]); //work position
     sprintf(m_ypos_str, "Y:%.1f", print_position[1]);
     sprintf(m_zpos_str, "Z:%.1f", print_position[2]);
 
@@ -191,6 +191,7 @@ void ready_data_updata(void) {
         ready_src.ready_label_wifi_status = mks_lv_label_updata(ready_src.ready_label_wifi_status, "WIFI:Connect");
     }
     #endif
+    
 }
 
 

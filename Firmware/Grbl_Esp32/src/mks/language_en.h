@@ -1,12 +1,12 @@
 #ifndef __language_ch_h
 #define __language_ch_h
 
-/* 公共 */
+/* 公共 public */
 #define BACK_EN                 "Back"
 #define YES_EN                  "Yes"
 #define NO_EN                   "No"
 
-/* 主页 */
+/* 主页 Home page */
 #define CONTROL_EN              "Control"           
 #define SCULPTURE_EN            "Sculpture"         
 #define TOOL_EN                 "Tool"          
@@ -15,7 +15,7 @@
 #define WIFI_CONNECT_EN   	    "Connect"
 #define WIFI_DISCONNECT_EN	    "Disconnect"
 
-/* 控制界面 */
+/* 控制界面 control interface */
 #define XY_CLEAR_EN             "XY_Clear"
 #define Z_CLEAR_EN              "Z_Clear"
 #define KNIFE_EN                "Knife"
@@ -29,10 +29,10 @@
 #define SPINDLE_EN              "Spindle"
 #define CARVE_EN                "Carve"
 
-/* 文件界面 */
+/* 文件界面 File interface */
 #define DIS_NO_SDCARD_EN        "No SD Card"
 
-/* 雕刻界面 */
+/* 雕刻界面 Engraving interface */
 #define HOLD_EN                 "Hold"
 #define CYCLE_EN                "Cycle"
 #define STOP_EN                 "Stop"
@@ -42,7 +42,7 @@
 #define RAPID_SPEED_EN          "Rapid speed"
 #define CARVE_TIMES_EN          "time:"
 
-/* 提示 */
+/* 提示 hint */
 #define DIS_STOP_CARVE_EN 		"Do you want to stop carve?"
 #define DIS_HOMEING_EN    		"Homing..."
 #define DIS_NO_HARD_HOME_EN  	"No Enable Hard Homing..."

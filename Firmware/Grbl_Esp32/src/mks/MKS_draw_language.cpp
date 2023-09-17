@@ -5,11 +5,11 @@ LANGUAGE_PAGE_T language_page;
 
 void mc_language_init(void) {
 
-	if(mks_grbl.language = SimpleChinese) {
+	if(mks_grbl.language == SimpleChinese) {
 
 		 
 	}
-	else if(mks_grbl.language = English) {
+	else if(mks_grbl.language == English) {
 		mc_language.back = BACK_EN;
 		mc_language.yes = YES_EN;
 		mc_language.no = NO_EN;
@@ -76,7 +76,8 @@ static uint8_t get_event(lv_obj_t* obj) {
  *	2------de
  *	3...
 */
-static void set_language(uint8_t language) {
+//static void set_language(uint8_t language) {
+void set_language(uint8_t language) {
 
 	switch(language) {
 

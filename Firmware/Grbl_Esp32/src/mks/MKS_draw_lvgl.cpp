@@ -91,7 +91,7 @@ lv_obj_t* mks_lvgl_long_sroll_label_with_wight_set_center(lv_obj_t* scr, lv_obj_
 }
 
 /*
- * 用于显示文件名
+ * 用于显示文件名 Used to display file names
 */
 lv_obj_t* label_for_file(lv_obj_t* scr, lv_obj_t* lab, lv_coord_t x, lv_coord_t y, const char* text, lv_coord_t w) {
 
@@ -106,7 +106,7 @@ lv_obj_t* label_for_file(lv_obj_t* scr, lv_obj_t* lab, lv_coord_t x, lv_coord_t 
 }
 
 /*
- * 用于按键里面的文本
+ * 用于按键里面的文本 Used for text inside buttons
 */
 lv_obj_t* label_for_btn_name(lv_obj_t* scr, lv_obj_t* lab,lv_coord_t x, lv_coord_t y, const char* text) {
     lab = lv_label_create(scr, NULL);
@@ -119,13 +119,14 @@ lv_obj_t* label_for_btn_name(lv_obj_t* scr, lv_obj_t* lab,lv_coord_t x, lv_coord
 }
 
 /*
- * 用于图片按键的文本
+ * 用于图片按键的文本 Text to use for image buttons
 */
 lv_obj_t* label_for_imgbtn_name(lv_obj_t* scr, lv_obj_t* lab, lv_obj_t* base, lv_coord_t x, lv_coord_t y, const char* text) {
     lab = lv_label_create(scr, NULL);
     lv_label_set_long_mode(lab, LV_LABEL_LONG_EXPAND);
     lv_label_set_recolor(lab, true);
     lv_label_set_text(lab, text);
+    
     // lv_label_set_align(lab ,LV_LABEL_ALIGN_CENTER);
     lv_obj_align(lab, base, LV_ALIGN_OUT_BOTTOM_MID, x, y);
     return lab;

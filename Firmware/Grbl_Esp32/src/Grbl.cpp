@@ -26,6 +26,7 @@
 #include "mks/MKS_draw_ready.h"
 #include "mks/MKS_ctrl.h"
 #include "mks/MKS_SDCard.h"
+#include "mks/MKS_draw_language.h"
 
 void grbl_init() {
 
@@ -123,8 +124,11 @@ void _mc_task_init(void) {
     tft_TS35_init();
     test_cfg_find_init();
     disp_task_init();
-}
 
+    //set default language to english (0:Simple Chinese, 1:English 2:Deutsch )
+    set_language(1); 
+	set_language_btn_style(1);
+}
 
 static void reset_variables() {
     // Reset system variables.
