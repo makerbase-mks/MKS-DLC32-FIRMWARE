@@ -127,7 +127,6 @@ void _mc_task_init(void) {
 
     //set default language to english (0:Simple Chinese, 1:English 2:Deutsch )
     set_language(1); 
-	set_language_btn_style(1);
 }
 
 static void reset_variables() {
