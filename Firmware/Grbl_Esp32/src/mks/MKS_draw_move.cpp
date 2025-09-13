@@ -341,17 +341,49 @@ void set_move_back(void) {
 
 static void event_handler(lv_obj_t* obj, lv_event_t event) {
 
+	uint8_t id = get_event(obj);
+	
+	// Handle axis movement buttons with long press functionality
+	if(id >= ID_M_UP && id <= ID_M_Z_DOWN) {
+		
+		if(event == LV_EVENT_LONG_PRESSED) {
+			// Start continuous movement on long press (>300ms)
+			switch(id) {
+				case ID_M_UP	:	start_continuous_movement('Y', 1); 	break;
+				case ID_M_DOWN	:	start_continuous_movement('Y', 0); 	break;
+				case ID_M_LEFT	:	start_continuous_movement('X', 0); 	break;
+				case ID_M_RIGHT	:	start_continuous_movement('X', 1); 	break;
+				case ID_M_Z_UP	:	start_continuous_movement('Z', 1);	break;
+				case ID_M_Z_DOWN:	start_continuous_movement('Z', 0);	break;
+			}
+			return;
+		}
+		
+		if(event == LV_EVENT_RELEASED) {
+			// Check if we were in long press mode
+			if(ui_move_ctrl.is_long_press_active) {
+				// Stop continuous movement immediately
+				stop_continuous_movement();
+				return;
+			} else {
+				// Normal short press - do discrete movement
+				switch(id) {
+					case ID_M_UP	:	move_ctrl('Y', 1); 	break;
+					case ID_M_DOWN	:	move_ctrl('Y', 0); 	break;
+					case ID_M_LEFT	:	move_ctrl('X', 0); 	break;
+					case ID_M_RIGHT	:	move_ctrl('X', 1); 	break;
+					case ID_M_Z_UP	:	move_ctrl('Z', 1);	break;
+					case ID_M_Z_DOWN:	move_ctrl('Z', 0);	break;
+				}
+			}
+			return;
+		}
+	}
+	
+	// Handle non-movement buttons (only on release)
 	if(event != LV_EVENT_RELEASED) return;
 
-	uint8_t id = get_event(obj);
-
 	switch(id) {
-		case ID_M_UP	:	move_ctrl('Y', 1); 	break;
-		case ID_M_DOWN	:	move_ctrl('Y', 0); 	break;
-		case ID_M_LEFT	:	move_ctrl('X', 0); 	break;
-		case ID_M_RIGHT	:	move_ctrl('X', 1); 	break;
-		case ID_M_Z_UP	:	move_ctrl('Z', 1);	break;
-		case ID_M_Z_DOWN:	move_ctrl('Z', 0);	break;
 		case ID_M_STEP	:	set_step_len();		break;
 		case ID_M_SPEED	:	set_speed();		break;
 		case ID_M_UNLOCK:	mc_unlock();		break;
@@ -372,6 +404,11 @@ static void event_handler(lv_obj_t* obj, lv_event_t event) {
 
 void mks_draw_move(void) {
  
+	// Initialize long press state
+	ui_move_ctrl.is_long_press_active = false;
+	ui_move_ctrl.long_press_axis = 0;
+	ui_move_ctrl.long_press_direction = 0;
+	
 	mks_global.mks_src_1 = lv_obj_create(mks_global.mks_src, NULL);
 	lv_obj_set_size(mks_global.mks_src_1, 460, 90);
     lv_obj_set_pos(mks_global.mks_src_1, 10, 10);
@@ -722,6 +759,49 @@ bool mks_get_motor_status(void) {
 
 void mks_clear_move(void) {
 	lv_obj_clean(mks_src);
+}
+
+void start_continuous_movement(char axis, uint8_t dir) {
+	// Safety check - only allow movement when system is idle
+	if(sys.state != State::Idle || !mks_get_motor_status()) {
+		return;
+	}
+	
+	// Prevent multiple long press activations
+	if(ui_move_ctrl.is_long_press_active) {
+		return;
+	}
+	
+	uint32_t speed;
+	
+	// Get speed based on current setting
+	if(mks_grbl.move_speed == LOW_SPEED) 		speed = 500;
+	else if(mks_grbl.move_speed == MID_SPEED)	speed = 1000;
+	else if(mks_grbl.move_speed == HIGHT_SPEED)	speed = 2000;
+	else speed = 1000; // default to mid speed
+	
+	// Set up continuous movement state
+	ui_move_ctrl.is_long_press_active = true;
+	ui_move_ctrl.long_press_axis = axis;
+	ui_move_ctrl.long_press_direction = dir;
+	
+	// Start continuous movement using jog mode
+	char str[30];
+	float direction = (dir == 0) ? -1000.0 : 1000.0; // Large distance for continuous movement
+	sprintf(str, "$J=G91%c%.2fF%d\n", axis, direction, speed);
+	MKS_GRBL_CMD_SEND(str);
+}
+
+void stop_continuous_movement(void) {
+	if(ui_move_ctrl.is_long_press_active) {
+		// Send jog cancel command for immediate stop
+		MKS_GRBL_CMD_SEND("\x85"); // Real-time jog cancel command
+		
+		// Reset long press state
+		ui_move_ctrl.is_long_press_active = false;
+		ui_move_ctrl.long_press_axis = 0;
+		ui_move_ctrl.long_press_direction = 0;
+	}
 }
 
 

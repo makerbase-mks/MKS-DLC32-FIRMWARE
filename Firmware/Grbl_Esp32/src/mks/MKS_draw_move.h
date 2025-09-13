@@ -103,6 +103,11 @@ typedef struct{
     MKS_HOMING_T soft_homing_status;        // 软限位回零配置
     uint8_t      limit_dis_delay_count=0;     // 类似于消抖
     
+    // Long press state tracking
+    bool         is_long_press_active;        // Track if we're in long press mode
+    char         long_press_axis;             // Which axis is being long pressed ('X', 'Y', or 'Z')
+    uint8_t      long_press_direction;        // Direction (0 or 1)
+    
 }MKS_MOVE_CTRL_T;
 
 extern MKS_MOVE_PAGE move_page;
@@ -141,4 +146,6 @@ void set_xy_home(void);
 void set_z_home(void);
 void move_pos_update(void);
 void probe_check();
+void start_continuous_movement(char axis, uint8_t dir);
+void stop_continuous_movement(void);
 #endif
